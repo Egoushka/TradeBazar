@@ -11,8 +11,9 @@ public class NavigationViewComponent : ViewComponent
         var homePage = content.AncestorOrSelf<HomePage>();
         
         var navigation = homePage?.MainNavigation?
-            .Select(x => (NavigationItem)x.Content)?? Enumerable.Empty<NavigationItem>();
+            .Select(x => (NavigationItem)x.Content) ?? Enumerable.Empty<NavigationItem>();
 
+        // ReSharper disable once Mvc.ViewComponentViewNotResolved
         return View(navigation);
     }
 }
