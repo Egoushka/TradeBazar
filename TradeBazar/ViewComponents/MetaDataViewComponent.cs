@@ -14,6 +14,7 @@ public class MetaDataViewComponent : ViewComponent
         var tags = string.Join(", ", seoTags ?? Array.Empty<string>());
         
         var seoTitle = content.Value<string>("seoTitle");
+        
         var seoDescription = content.Value<string>("seoDescription");
         
         
