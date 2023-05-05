@@ -1,19 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core.Models.PublishedContent;
+using TradeBazar.ViewModels;
 using Umbraco.Cms.Web.Common.PublishedModels;
 
 namespace TradeBazar.ViewComponents;
 
 public class NavigationViewComponent : ViewComponent
 {
-    public IViewComponentResult Invoke(IPublishedContent content)
+    public IViewComponentResult Invoke(Settings settings, string language)
     {
-        var homePage = content.AncestorOrSelf<HomePage>();
-        
-        var navigation = homePage?.MainNavigation?
+        var navigation = settings?.MainNavigation?
             .Select(x => (NavigationItem)x.Content) ?? Enumerable.Empty<NavigationItem>();
+        
+        var model = new NavigationViewModel
+        {
+            Navigation = navigation,
+            Language = language
+        };
 
         // ReSharper disable once Mvc.ViewComponentViewNotResolved
-        return View(navigation);
+        return View(model);
     }
 }

@@ -1,15 +1,16 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
 @{
-	var row = (FeatureItemsRow)Model.Content;
-	var settings = (FeaturedItemsSettings)Model.Settings;
-	if (row.FeaturedItems == null || !row.FeaturedItems.Any())
-	{
-		return;
-	}
-	if (settings?.Hide ?? false)
-	{
-		return;
-	}
+    var row = (FeaturedItemsRow)Model.Content;
+    var settings = (FeaturedItemsRowSettings)Model.Settings;
+    
+    if (row.FeaturedItems == null || !row.FeaturedItems.Any())
+    {
+        return;
+    }
+    if (settings?.Hide ?? false)
+    {
+        return;
+    }
 }
 <div class="row gx-4 gx-lg-5 justify-content-center">
     @foreach(var item in row.FeaturedItems)

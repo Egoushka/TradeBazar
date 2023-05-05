@@ -1,43 +1,56 @@
 @using Umbraco.Cms.Web.Common.PublishedModels
-@model System.Collections.Generic.IEnumerable<Umbraco.Cms.Web.Common.PublishedModels.NavigationItem>
-
-<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="@Model.First().Link.Url">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
+@using Umbraco.Cms.Core.Services
+@using Umbraco.Cms.Web.Common
+@model TradeBazar.ViewModels.NavigationViewModel
+@{
+}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(0, 0, 0, 0.8);" id="mainNav">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white me-auto" href="/@Model.Language" style="font-family: 'Arial', 
+        sans-serif; font-size: 28px; font-weight: bold;">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 3L3 9v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9l-9-6zm-2 16V11h4v8h-4z" fill="currentColor"/>
+            </svg>
+        </a>
+        
+        <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" 
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                
-                @if (Model != null && Model.Any())
+        
+        <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+
+                @if (Model != null && Model.Navigation.Any())
                 {
-                    @foreach (var navigationItem in Model)
+                    @foreach (var navigationItem in Model.Navigation)
                     {
-                        if (navigationItem.ChildLinks != null && navigationItem.ChildLinks.Any())
+                        @if (navigationItem.ChildLinks != null && navigationItem.ChildLinks.Any())
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" id="@navigationItem.Key" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">@navigationItem.Link.Name</a>
-                                <ul class="dropdown-menu border-0" aria-labelledby="@navigationItem.Key">
+                                <a class="nav-link dropdown-toggle text-white px-3" href="#" id="navbarDropdownMenuLink" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    @navigationItem.Title
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     @foreach (var childLink in navigationItem.ChildLinks)
                                     {
-                                        <li>
-                                            <a class="dropdown-item" href="@childLink.Url">@childLink.Name</a>
-                                        </li>
+                                        <a class="dropdown-item" href="@childLink.Url">@childLink.Name</a>
                                     }
-                                </ul>
+                                    <div class="dropdown-divider"></div>
+                                </div>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link px-lg-3 py-3 py-lg-4" href="@navigationItem.Link.Url">@navigationItem.Link.Name</a>
+                                <a class="nav-link text-white px-3" href="@navigationItem.Link.Url">@navigationItem.Link.Name</a>
                             </li>
                         }
+
                     }
                 }
-                
+
             </ul>
         </div>
     </div>

@@ -2,6 +2,7 @@
 @{
 	var row = (ImageRow)Model.Content;
 	var rowSettings = (ImageRowSettings)Model.Settings;
+	
 	if (row.Image == null || (rowSettings?.Hide ?? false))
 	{
 		return;
